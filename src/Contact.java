@@ -1,4 +1,4 @@
-public class Contact {
+public class Contact implements Comparable<Contact>{
     protected String name;
     protected String phoneNumber;
 
@@ -26,5 +26,10 @@ public class Contact {
     @Override
     public String toString() {
         return "name: " + name + ", phone: " + phoneNumber;
+    }
+
+    @Override
+    public int compareTo(Contact contact) {
+        return name.compareTo(contact.getName());
     }
 }

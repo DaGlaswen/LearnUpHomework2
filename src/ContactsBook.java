@@ -1,35 +1,47 @@
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class ContactsBook {
 
-    ArrayList<Contact> contactsArray = new ArrayList<>();
+    HashMap<String, Contact> contactsMap = new HashMap();
 
     public void add(Contact contact) {
-        contactsArray.add(contact);
+        contactsMap.put(contact.getPhoneNumber(), contact);
     }
 
     public Contact getByPhone(String phone) {
-        for (Contact contact : contactsArray) {
-            if (contact.getPhoneNumber() == phone) {
-                return contact;
+        for (String phoneInBook : contactsMap.keySet()) {
+            if (phoneInBook == phone) {
+                return contactsMap.get(phoneInBook);
             }
         }
         return null;
     }
 
     public void removeByPhone(String phone) {
-        for (int i = 0; i < contactsArray.size(); i++) {
-            if (contactsArray.get(i).getPhoneNumber() == phone) {
-                contactsArray.remove(i);
+        for (String phoneInBook : contactsMap.keySet()) {
+            if (phoneInBook == phone) {
+                contactsMap.remove(phoneInBook);
             }
         }
     }
 
+    public ArrayList<Contact> getSortedContacts() {
+        ArrayList<Contact> contacts = new ArrayList<>(contactsMap.values());
+        Collections.sort(contacts);
+        return contacts; // sorted
+    }
+
     @Override
     public String toString() {
-        // Взято с StackOverflow
-        return contactsArray.stream().map(Object::toString)
-                .collect(Collectors.joining(", "));
+        StringBuilder result = new StringBuilder("{contactsBook: {\n");
+        for (String phone : contactsMap.keySet()) {
+            result.append("\t" + phone + ": " + contactsMap.get(phone).toString() + "\n");
+        }
+        result.append("\t}\n");
+        result.append("}");
+        return String.valueOf(result);
     }
 }
+

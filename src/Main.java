@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
         ContactsBook contactsBook = new ContactsBook();
@@ -12,7 +14,8 @@ public class Main {
         System.out.println(someGuy);
         contactsBook.removeByPhone(someGuy.getPhoneNumber());
         System.out.println(contactsBook);
-
+        ArrayList<Contact> sortedContacts = contactsBook.getSortedContacts();
+        System.out.println(sortedContacts);
         // Головинов Данил
     }
 }
