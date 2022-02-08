@@ -1,8 +1,6 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class ContactsBook {
@@ -45,6 +43,21 @@ public class ContactsBook {
         ArrayList<Contact> contacts = new ArrayList<>(contactsMap.values());
         Collections.sort(contacts);
         return contacts; // sorted
+    }
+
+
+    public Set<Integer> getCountries() {
+        return contactsMap.keySet().stream().map(phone -> {
+            StringBuilder countryCode = new StringBuilder();
+            for (int i = 1; i < phone.length(); i++) {
+                if (phone.charAt(i) != '-') {
+                    countryCode.append(phone.charAt(i));
+                } else {
+                    break;
+                }
+            }
+            return Integer.valueOf(String.valueOf(countryCode));
+        }).collect(Collectors.toSet());
     }
 
     @Override
