@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class ContactsBook {
 
@@ -17,6 +20,17 @@ public class ContactsBook {
             }
         }
         return null;
+    }
+
+    public void searchBy(Predicate<Contact> criterion) {
+        List<Contact> sortedListOfContacts = getSortedContacts();
+        for (Contact contact : sortedListOfContacts) {
+            if (criterion.test(contact)) System.out.println(contact);
+        }
+    }
+
+    public void searchBy(String pattern) {
+        searchBy(contact -> contact.getName().matches(pattern.replace("*", ".*")));
     }
 
     public void removeByPhone(String phone) {

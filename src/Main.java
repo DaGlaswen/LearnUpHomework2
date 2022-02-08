@@ -9,13 +9,9 @@ public class Main {
         contactsBook.add(bob);
         contactsBook.add(george);
         contactsBook.add(mike);
-        System.out.println(contactsBook);
-        Contact someGuy = contactsBook.getByPhone("+79334536655");
-        System.out.println(someGuy);
-        contactsBook.removeByPhone(someGuy.getPhoneNumber());
-        System.out.println(contactsBook);
-        ArrayList<Contact> sortedContacts = contactsBook.getSortedContacts();
-        System.out.println(sortedContacts);
+        contactsBook.searchBy(contact -> contact.getName().toLowerCase().contains("bo"));
+        contactsBook.searchBy("G*e");
+
         // Головинов Данил
     }
 }
